@@ -1,0 +1,13 @@
+name = "PlatformAwareQueens"
+uuid = "9517c7ca-41df-482a-982b-6591a3f0f77f"
+authors = ["Tiago Carneiro <carneirouece@gmail.com>", "Francisco Heron de Carvalho Junior <heron@dc.ufc.br>", "contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
