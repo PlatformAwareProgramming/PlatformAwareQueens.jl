@@ -3,6 +3,9 @@ uuid = "9517c7ca-41df-482a-982b-6591a3f0f77f"
 authors = ["Tiago Carneiro <carneirouece@gmail.com>", "Francisco Heron de Carvalho Junior <heron@dc.ufc.br>", "contributors"]
 version = "0.1.0"
 
+[deps]
+PlatformAware = "e7c50b67-2c03-471e-9cf2-69e515d86ecf"
+
 [compat]
 julia = "1"
 

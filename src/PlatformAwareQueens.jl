@@ -2,6 +2,9 @@ module PlatformAwareQueens
 
 using PlatformAware
 
+#PlatformAware.setplatform!(:processor_core_count, @just 1)
+
+include("queens_base.jl")
 include("queens_serial.jl")
 include("queens_multicore.jl")
 include("queens_gpu.jl")
