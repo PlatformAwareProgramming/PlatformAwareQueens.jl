@@ -5,52 +5,22 @@
 
 @platform default function queens(size)
     
-   @time queens_serial(size+1)
+   @time queens_serial(Val(size+1))
 
+   println("teste")
 end
 
-function queens_serial(size)
+function queens_serial(::Val{size}) where size
 
-	__VOID__     = 0
-	__VISITED__    = 1
-	__N_VISITED__   = 0
+	#obs: because the vector begins with 1 I need to use size+1 for N-Queens of size 'size'
+	println("Starting N-Queens of size ", size-1)
 
-	depth = 1
-	tree_size = 0
-	number_of_solutions = 0
 	local_visited = zeros(Int64,size)
 	local_permutation = zeros(Int64,size)
 
-	while true
-		local_permutation[depth] = local_permutation[depth]+1
+	number_of_solutions, tree_size = queens_tree_explorer(size, 1, 0, local_visited, local_permutation)
 
-		if local_permutation[depth] == (size+1)
-			local_permutation[depth] = __VOID__
-		else
-			if (local_visited[local_permutation[depth]] == 0 && queens_is_valid_configuration(local_permutation,depth))
+	println("Number of solutions: $(number_of_solutions)")
+	println("Tree size: $(tree_size)")
 
-				local_visited[local_permutation[depth]] = __VISITED__
-				depth +=1
-				tree_size+=1
-
-				if depth == size+1 ##complete solution -- full, feasible and valid solution
-					number_of_solutions+=1
-				else
-					continue
-				end
-			else
-				continue
-			end #elif
-		end
-
-		depth -= 1
-		local_visited[local_permutation[depth]] = __N_VISITED__
-
-		if depth < 2
-			break
-		end #if depth<2
-
-	end
-
-    return (number_of_solutions, tree_size) 
 end #queens serial
