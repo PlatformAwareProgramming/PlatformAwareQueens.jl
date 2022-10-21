@@ -18,7 +18,7 @@ function queens_serial(::Val{size}) where size
 	local_visited = zeros(Int64,size)
 	local_permutation = zeros(Int64,size)
 
-	number_of_solutions, tree_size = queens_tree_explorer(size, 1, 0, local_visited, local_permutation)
+	number_of_solutions, tree_size = queens_tree_explorer_serial(size, 1, local_visited, local_permutation)
 
 	println("Number of solutions: $(number_of_solutions)")
 	println("Tree size: $(tree_size)")

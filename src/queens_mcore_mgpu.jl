@@ -23,19 +23,6 @@ function get_cpu_load(percent::Float64, num_subproblems::Int64)::Int64
     return floor(Int64,num_subproblems*percent)
 end
 
-
-function get_load_each_gpu(gpu_load::Int64, num_gpus::Int64, device_load )
-
-	for device in 1:num_gpus
-		device_load[device] = floor(Int64, gpu_load/num_gpus)
-		if(device == num_gpus)
-			device_load[device]+= gpu_load%num_gpus
-		end
-	end
-
-end ###
-
-
 function get_starting_point_each_gpu(cpu_load::Int64, num_devices, device_load,device_starting_point)
 	
 	starting_point = cpu_load
@@ -96,13 +83,12 @@ function queens_mgpu_mcore_caller(::Val{size}, ::Val{cutoff_depth}, ::Val{__BLOC
 				@async begin
 					device!(gpu_dev-1)
 					println("gpu: ", gpu_dev-1)
-					(sols_each_task[gpu_dev],tree_each_task[gpu_dev]) = queens_mgpu_caller(size, 
-					                                                                        cutoff_depth, 
-																							__BLOCK_SIZE_, 
-																							device_load[gpu_dev],
-					                                                                        device_starting_position[gpu_dev], 
-																							subproblems)
-					# do work on GPU 0 here
+					(sols_each_task[gpu_dev],tree_each_task[gpu_dev]) = queens_gpu_caller(size, 
+					                                                                      cutoff_depth, 
+																						  __BLOCK_SIZE_, 
+																						  device_load[gpu_dev],
+					                                                                      device_starting_position[gpu_dev], 
+																						  subproblems)
 				end
 			end##for
 		end #if num_gpus

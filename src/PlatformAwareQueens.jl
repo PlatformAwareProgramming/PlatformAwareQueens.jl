@@ -4,7 +4,7 @@ using PlatformAware
 using CUDA
 using StaticArrays
 
-PlatformAware.setplatform!(:processor_core_count, @just 1)
+CUDA.@check @ccall CUDA.libcudart().cudaDeviceSetLimit(CUDA.cudaLimitMallocHeapSize::CUDA.cudaLimit, 100000000::Csize_t)::CUDA.cudaError_t
 
 include("queens_base.jl")
 include("queens_serial.jl")
