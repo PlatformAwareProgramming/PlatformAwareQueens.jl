@@ -2,6 +2,42 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
+@platform aware function init_queens({processor_core_count::(@atleast 2), 
+                                      accelerator_count::(@atleast 2), 
+                                      accelerator_manufacturer::NVIDIA,
+                                      accelerator_api::(@api CUDA)})
+	nothing
+end
+
+@platform aware function init_queens({node_provider::CloudProvider,
+								      node_vcpus_count::(@atleast 2), 
+                                      accelerator_count::(@atleast 2), 
+                                      accelerator_manufacturer::NVIDIA,
+                                      accelerator_api::(@api CUDA)})
+	nothing
+end
+
+@platform aware function queens({processor_core_count::(@atleast 2), 
+                                 accelerator_count::(@atleast 2), 
+                                 accelerator_manufacturer::NVIDIA,
+                                 accelerator_api::(@api CUDA)}, 
+                                size)
+
+	@time queens_mgpu_mcore(size)
+
+end
+
+@platform aware function queens({node_provider::CloudProvider,
+								 node_vcpus_count::(@atleast 2), 
+                                 accelerator_count::(@atleast 2), 
+                                 accelerator_manufacturer::NVIDIA,
+                                 accelerator_api::(@api CUDA)}, 
+                                size)
+
+	@time queens_mgpu_mcore(size)
+
+end
+
 function get_cpu_load(percent::Float64, num_subproblems::Int64)::Int64
     return floor(Int64,num_subproblems*percent)
 end

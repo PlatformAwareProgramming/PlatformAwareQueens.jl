@@ -2,6 +2,29 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
+@platform aware function init_queens({processor_core_count::(@atleast 2)})
+   nothing
+end
+
+@platform aware function init_queens({node_provider::CloudProvider,
+								      node_vcpus_count::(@atleast 2)})
+    nothing
+end
+
+
+@platform aware function queens({processor_core_count::(@atleast 2)}, size)
+
+    @time queens_mcore(size)
+
+end
+
+@platform aware function queens({node_provider::CloudProvider,
+								 node_vcpus_count::(@atleast 2)}, size)
+
+    @time queens_mcore(size)
+
+end
+
 function queens_mcore_caller(size, number_of_subproblems, subproblems) 
 
 	cutoff_depth = getCutoffDepth()

@@ -2,17 +2,6 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-function selectQueens()
-
-	if ()
-
-end
-
-
-queens = selectQueens()
-
-
-
 
 macro serial(size)
 	@time queens_serial(size)

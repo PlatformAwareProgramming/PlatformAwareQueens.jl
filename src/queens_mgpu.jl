@@ -2,6 +2,20 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
+@platform aware function init_queens({accelerator_count::(@atleast 2), 
+                                      accelerator_manufacturer::NVIDIA,
+                                      accelerator_api::(@api CUDA)})
+	nothing
+end
+
+
+@platform aware function queens({accelerator_count::(@atleast 2), 
+                                 accelerator_manufacturer::NVIDIA,
+                                 accelerator_api::(@api CUDA)}, 
+                                size)
+	@time queens_mgpu(size)
+end
+
 function get_load_each_gpu(gpu_load, num_gpus, device_load)
 
 	for device in 1:num_gpus

@@ -4,6 +4,7 @@
 
 module PlatformAwareQueens
 
+using PlatformAware
 using CUDA
 using StaticArrays
 
@@ -23,6 +24,11 @@ include("queens_mcore_mgpu.jl")
 include("queens_cluster.jl")
 
 include("queens_select.jl")
+
+
+function __init__()
+   # init_queens()
+end
 
 export queens
 
