@@ -2,7 +2,15 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({processor_core_count::(@atleast 2), 
+@platform aware function init_queens({processor_count::(@atleast 2), 
+                                      accelerator_count::(@atleast 2), 
+                                      accelerator_manufacturer::NVIDIA,
+                                      accelerator_api::(@api CUDA)})
+	nothing
+end
+
+@platform aware function init_queens({processor_count::(@just 1), 
+									  processor_core_count::(@atleast 2),
                                       accelerator_count::(@atleast 2), 
                                       accelerator_manufacturer::NVIDIA,
                                       accelerator_api::(@api CUDA)})
@@ -17,14 +25,21 @@ end
 	nothing
 end
 
-@platform aware function queens({processor_core_count::(@atleast 2), 
+@platform aware function queens({processor_count::(@atleast 2), 
                                  accelerator_count::(@atleast 2), 
                                  accelerator_manufacturer::NVIDIA,
                                  accelerator_api::(@api CUDA)}, 
                                 size)
-
 	@time queens_mgpu_mcore(size)
+end
 
+@platform aware function queens({processor_count::(@just 1),
+								 processor_core_count::(@atleast 2), 
+                                 accelerator_count::(@atleast 2), 
+                                 accelerator_manufacturer::NVIDIA,
+                                 accelerator_api::(@api CUDA)}, 
+                                size)
+	@time queens_mgpu_mcore(size)
 end
 
 @platform aware function queens({node_provider::CloudProvider,

@@ -12,6 +12,7 @@ end
                                  accelerator_manufacturer::NVIDIA,
                                  accelerator_api::(@api CUDA)}, 
                                  size)
+	
 	@time queens_sgpu(size)
 end
 
