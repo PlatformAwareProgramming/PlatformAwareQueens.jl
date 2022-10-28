@@ -2,73 +2,29 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({processor_count::(@atleast 2), 
-                                      accelerator_count::(@atleast 2), 
-                                      accelerator_manufacturer::NVIDIA,
-                                      accelerator_api::(@api CUDA)})
-	nothing
-end
-
-@platform aware function init_queens({processor_count::(@just 1), 
-									  processor_core_count::(@atleast 2),
-                                      accelerator_count::(@atleast 2), 
-                                      accelerator_manufacturer::NVIDIA,
-                                      accelerator_api::(@api CUDA)})
-	nothing
-end
-
-@platform aware function init_queens({node_provider::CloudProvider,
-								      node_vcpus_count::(@atleast 2), 
-                                      accelerator_count::(@atleast 2), 
-                                      accelerator_manufacturer::NVIDIA,
-                                      accelerator_api::(@api CUDA)})
-	nothing
-end
-
-@platform aware function queens({processor_count::(@atleast 2), 
-                                 accelerator_count::(@atleast 2), 
-                                 accelerator_manufacturer::NVIDIA,
-                                 accelerator_api::(@api CUDA)}, 
-                                size)
-	@info "mcore/mgpu kernel"
-	@time queens_mgpu_mcore(size)
-end
-
-@platform aware function queens({processor_count::(@just 1),
-								 processor_core_count::(@atleast 2), 
-                                 accelerator_count::(@atleast 2), 
-                                 accelerator_manufacturer::NVIDIA,
-                                 accelerator_api::(@api CUDA)}, 
-                                size)
-	@info "mcore/mgpu kernel"
-	@time queens_mgpu_mcore(size)
-end
-
-@platform aware function queens({node_provider::CloudProvider,
-								 node_vcpus_count::(@atleast 2), 
-                                 accelerator_count::(@atleast 2), 
-                                 accelerator_manufacturer::NVIDIA,
-                                 accelerator_api::(@api CUDA)}, 
-                                size)
-
-	@info "mcore/mgpu kernel"
-	@time queens_mgpu_mcore(size)
-
-end
-
 function get_cpu_load(percent::Float64, num_subproblems::Int64)::Int64
     return floor(Int64,num_subproblems*percent)
 end
 
-function queens_mgpu_mcore(size) 
-	
-	size += 1
+function queens_mgpu_mcore(size)
+
 	cutoff_depth = getCutoffDepth()
+	size += 1
+
+	(subproblems, number_of_subproblems, partial_tree_size) = @time queens_partial_search!(Val(size), cutoff_depth)
+
+	number_of_solutions, tree_size = queens_mgpu_mcore_caller(size, cutoff_depth, number_of_subproblems, subproblems) 
+	tree_size += partial_tree_size
+
+	return number_of_solutions, tree_size
+
+end #caller
+
+
+function queens_mgpu_mcore_caller(size, cutoff_depth, number_of_subproblems, subproblems)
 
 	num_gpus = Int64(length(CUDA.devices()))
 	num_threads = Threads.nthreads()
-
-	subproblems, number_of_subproblems, partial_tree_size = @time queens_partial_search!(Val(size), cutoff_depth)
 
 	tree_each_task = zeros(Int64, num_gpus + 1)
 	sols_each_task = zeros(Int64, num_gpus + 1)
@@ -117,7 +73,7 @@ function queens_mgpu_mcore(size)
 			end
 		end 
 	end
-	final_tree = sum(tree_each_task) + partial_tree_size
+	final_tree = sum(tree_each_task)
 	final_num_sols = sum(sols_each_task)
 
 	return final_num_sols, final_tree

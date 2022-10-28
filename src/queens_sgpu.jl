@@ -2,21 +2,6 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({accelerator_count::(@just 1), 
-                                 	  accelerator_manufacturer::NVIDIA,
-                                 	  accelerator_api::(@api CUDA)})
-	nothing
-end
-
-@platform aware function queens({accelerator_count::(@just 1), 
-                                 accelerator_manufacturer::NVIDIA,
-                                 accelerator_api::(@api CUDA)}, 
-                                 size)
-	
-	@info "sgpu kernel"
-	@time queens_sgpu(size)
-end
-
 function queens_sgpu(size)
 
 	size += 1

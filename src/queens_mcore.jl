@@ -2,47 +2,6 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({node_provider::OnPremises,
-	                                  processor_count::(@atleast 2),
-									  accelerator_count::@just(0)})
-   nothing
-end
-
-@platform aware function init_queens({node_provider::OnPremises,
-									  processor_count::(@just 1),
-	                                  processor_core_count::(@atleast 2),
-									  accelerator_count::@just(0)})
-   nothing
-end
-
-@platform aware function init_queens({node_provider::CloudProvider,
-								      node_vcpus_count::(@atleast 2),
-									  accelerator_count::@just(0)})
-    nothing
-end
-
-@platform aware function queens({node_provider::OnPremises,
-	                             processor_count::(@atleast 2),
-								 accelerator_count::@just(0)}, size)
-	@info "mcore kernel"
-    @time queens_mcore(size)
-end
-
-@platform aware function queens({node_provider::OnPremises,
-								 processor_count::(@just 1),
-	                             processor_core_count::(@atleast 2),
-								 accelerator_count::@just(0)}, size)
-	@info "mcore kernel"
-    @time queens_mcore(size)
-end
-
-@platform aware function queens({node_provider::CloudProvider,
-								 node_vcpus_count::(@atleast 2),
-								 accelerator_count::@just(0)}, size)
- 	@info "mcore kernel"
-   @time queens_mcore(size)
-end
-
 function queens_mcore_caller(size, number_of_subproblems, subproblems) 
 
 	cutoff_depth = getCutoffDepth()
@@ -57,7 +16,7 @@ function queens_mcore_caller(size, number_of_subproblems, subproblems)
 		for ii in 0:(num_threads-1)
 
 			local local_thread_id = ii
-			local local_load = thread_load[local_thread_id+1]
+			local local_load = thread_load[local_thread_id + 1]
 
 			Threads.@spawn begin
 				@info  "thread: $(string(local_thread_id)) has $(string(local_load)) iterations"

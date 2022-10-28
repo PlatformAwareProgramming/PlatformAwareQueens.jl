@@ -23,7 +23,11 @@ macro mcoremgpu(size)
 	@time queens_mgpu_mcore(size)
 end
 
-export @serial, @mcore, @sgpu, @mcoremgpu, @mgpu
+macro cluster(size)
+	@time queens_distributed(size)
+end
+
+export @serial, @mcore, @sgpu, @mcoremgpu, @mgpu, @cluster
 
 
 
