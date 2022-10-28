@@ -3,35 +3,44 @@
 # ------------------------------------------------------------------
 
 @platform aware function init_queens({node_provider::OnPremises,
-	                                  processor_count::(@atleast 2)})
+	                                  processor_count::(@atleast 2),
+									  accelerator_count::@just(0)})
    nothing
 end
 
 @platform aware function init_queens({node_provider::OnPremises,
 									  processor_count::(@just 1),
-	                                  processor_core_count::(@atleast 2)})
+	                                  processor_core_count::(@atleast 2),
+									  accelerator_count::@just(0)})
    nothing
 end
 
 @platform aware function init_queens({node_provider::CloudProvider,
-								      node_vcpus_count::(@atleast 2)})
+								      node_vcpus_count::(@atleast 2),
+									  accelerator_count::@just(0)})
     nothing
 end
 
 @platform aware function queens({node_provider::OnPremises,
-	                             processor_count::(@atleast 2)}, size)
+	                             processor_count::(@atleast 2),
+								 accelerator_count::@just(0)}, size)
+	@info "mcore kernel"
     @time queens_mcore(size)
 end
 
 @platform aware function queens({node_provider::OnPremises,
 								 processor_count::(@just 1),
-	                             processor_core_count::(@atleast 2)}, size)
+	                             processor_core_count::(@atleast 2),
+								 accelerator_count::@just(0)}, size)
+	@info "mcore kernel"
     @time queens_mcore(size)
 end
 
 @platform aware function queens({node_provider::CloudProvider,
-								 node_vcpus_count::(@atleast 2)}, size)
-    @time queens_mcore(size)
+								 node_vcpus_count::(@atleast 2),
+								 accelerator_count::@just(0)}, size)
+ 	@info "mcore kernel"
+   @time queens_mcore(size)
 end
 
 function queens_mcore_caller(size, number_of_subproblems, subproblems) 

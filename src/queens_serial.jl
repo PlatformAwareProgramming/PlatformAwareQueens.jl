@@ -8,6 +8,7 @@ end
 
 @platform default function queens(size)
     
+	@info "serial kernel"
 	@time queens_serial(size)
  
  end

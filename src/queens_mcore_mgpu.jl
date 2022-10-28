@@ -30,6 +30,7 @@ end
                                  accelerator_manufacturer::NVIDIA,
                                  accelerator_api::(@api CUDA)}, 
                                 size)
+	@info "mcore/mgpu kernel"
 	@time queens_mgpu_mcore(size)
 end
 
@@ -39,6 +40,7 @@ end
                                  accelerator_manufacturer::NVIDIA,
                                  accelerator_api::(@api CUDA)}, 
                                 size)
+	@info "mcore/mgpu kernel"
 	@time queens_mgpu_mcore(size)
 end
 
@@ -49,6 +51,7 @@ end
                                  accelerator_api::(@api CUDA)}, 
                                 size)
 
+	@info "mcore/mgpu kernel"
 	@time queens_mgpu_mcore(size)
 
 end

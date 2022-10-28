@@ -5,9 +5,7 @@
 @platform aware function init_queens({node_count::(@atleast 2 P),
                                       accelerator_count::(@atleast 1),
                                       accelerator_api::(@api CUDA)}) where P
-    
-    addprocs(P)
-
+    @info "running on $P nodes"
 end
 
 @platform aware function queens({node_count::(@atleast 2), 
