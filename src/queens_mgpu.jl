@@ -48,7 +48,7 @@ function queens_mgpu(size)
 
 	@sync begin
 			for gpu_dev in 1:num_gpus
-				@async begin
+				Threads.@spawn begin
 					device!(gpu_dev - 1)
 					@info "- starting device: $(gpu_dev - 1)"
 					(sols_each_task[gpu_dev],tree_each_task[gpu_dev]) = queens_gpu_caller(size, 
