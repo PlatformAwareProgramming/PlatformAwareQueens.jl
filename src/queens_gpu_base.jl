@@ -78,7 +78,7 @@ function queens_gpu_caller(size, cutoff_depth, number_of_subproblems, starting_p
 
 	num_blocks = ceil(Int, number_of_subproblems/__BLOCK_SIZE_)
 
-	@info "threads=$__BLOCK_SIZE_ blocks=$num_blocks"
+	@info "device $(device()): threads=$__BLOCK_SIZE_ blocks=$num_blocks"
     @cuda threads=__BLOCK_SIZE_ blocks=num_blocks gpu_queens_tree_explorer!(Val(size), Val(cutoff_depth), number_of_subproblems, subpermutation_d, controls_d, tree_size_d, number_of_solutions_d)
 
     #from de gpu to the cpu

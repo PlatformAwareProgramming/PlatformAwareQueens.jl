@@ -123,7 +123,7 @@ end
                                       accelerator_count::(@atleast 2), 
                                       accelerator_manufacturer::NVIDIA,
                                       accelerator_api::(@api CUDA)})
-	nothing
+	configureHeap()
 end
 
 @platform aware function init_queens({node_count::@just(1),
@@ -132,7 +132,7 @@ end
                                       accelerator_count::(@atleast 2), 
                                       accelerator_manufacturer::NVIDIA,
                                       accelerator_api::(@api CUDA)})
-	nothing
+	configureHeap()
 end
 
 @platform aware function queens({node_count::@just(1),
