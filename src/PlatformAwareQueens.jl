@@ -8,6 +8,7 @@ using PlatformAware
 using CUDA
 using StaticArrays
 using Distributed
+using BenchmarkTools
 
 CUDA.@check @ccall CUDA.libcudart().cudaDeviceSetLimit(CUDA.cudaLimitMallocHeapSize::CUDA.cudaLimit, 100000000::Csize_t)::CUDA.cudaError_t
 

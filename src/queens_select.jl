@@ -4,27 +4,27 @@
 
 
 macro serial(size)
-	@time queens_serial(size)
+	queens_serial(size)
 end
 
 macro mcore(size)
-	@time queens_mcore(size)
+	queens_mcore(size)
 end
 
 macro sgpu(size)
-	@time queens_sgpu(size)
+	queens_sgpu(size)
 end
 
 macro mgpu(size)
-	@time queens_mgpu(size)
+	queens_mgpu(size)
 end
 
 macro mcoremgpu(size)
-	@time queens_mgpu_mcore(size)
+	queens_mgpu_mcore(size)
 end
 
 macro cluster(size)
-	@time queens_distributed(size)
+	queens_distributed(size)
 end
 
 export @serial, @mcore, @sgpu, @mcoremgpu, @mgpu, @cluster
