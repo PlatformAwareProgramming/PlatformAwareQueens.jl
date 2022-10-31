@@ -2,7 +2,6 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-
 @tree_explorer(queens_partial_search,
                1,
 			   cutoff_depth + 1,

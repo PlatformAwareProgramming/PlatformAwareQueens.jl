@@ -33,8 +33,8 @@ function queens_mgpu(size)
 
 	(subproblems, number_of_subproblems, partial_tree_size) = @time queens_partial_search!(Val(size), cutoff_depth)
 
-	tree_each_task = zeros(Int64,num_gpus+1)
-	sols_each_task = zeros(Int64,num_gpus+1)
+	tree_each_task = zeros(Int64, num_gpus + 1)
+	sols_each_task = zeros(Int64, num_gpus + 1)
     
     device_load = zeros(Int64, num_gpus)
     device_starting_position = zeros(Int64, num_gpus)

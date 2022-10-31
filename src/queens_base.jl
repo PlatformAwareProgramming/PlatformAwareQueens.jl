@@ -2,9 +2,9 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-function createArrays(::Val{size}) where size
-	local_visited     = MArray{Tuple{size+1},Int64}(undef)
-	local_permutation = MArray{Tuple{size+1},Int64}(undef)
+function createArrays(::Val{length}) where length
+	local_visited     = MArray{Tuple{length+1},Int64}(undef)
+	local_permutation = MArray{Tuple{length+1},Int64}(undef)
 
 	local_visited     .= 0
 	local_permutation .= 0

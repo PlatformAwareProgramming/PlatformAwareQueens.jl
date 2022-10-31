@@ -53,7 +53,7 @@ function queens_mgpu_mcore_caller(size, cutoff_depth, number_of_subproblems, sub
 	@sync begin
 		if num_gpus > 0 && gpu_load > 0
 			for gpu_dev in 1:num_gpus
-				@async begin
+				Threads.@spawn begin
 					device!(gpu_dev-1)
 					@info "- starting device: $(gpu_dev - 1)"
 					(sols_each_task[gpu_dev],tree_each_task[gpu_dev]) = queens_gpu_caller(size, 
