@@ -8,7 +8,7 @@ function queens_sgpu(size)
 
 	cutoff_depth = getCutoffDepth()
 
-	(subproblems, number_of_subproblems, partial_tree_size) = @time queens_partial_search!(Val(size), cutoff_depth)
+	(subproblems, number_of_subproblems, partial_tree_size) = queens_partial_search!(Val(size), cutoff_depth)
 
 	number_of_solutions, tree_size = queens_gpu_caller(size, cutoff_depth, number_of_subproblems, 1, subproblems)
 

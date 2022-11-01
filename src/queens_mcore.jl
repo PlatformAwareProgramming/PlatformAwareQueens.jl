@@ -45,7 +45,7 @@ function queens_mcore(size)
 	cutoff_depth = getCutoffDepth()
 	size += 1
 
-	(subproblems, number_of_subproblems, partial_tree_size) = @time queens_partial_search!(Val(size), cutoff_depth)
+	(subproblems, number_of_subproblems, partial_tree_size) = queens_partial_search!(Val(size), cutoff_depth)
 
 	number_of_solutions, tree_size = queens_mcore_caller(size, number_of_subproblems, subproblems) 
 	tree_size += partial_tree_size
