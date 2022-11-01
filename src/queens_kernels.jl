@@ -17,7 +17,7 @@ end
 @platform default function queens(size)
     
 	@info "serial kernel"
-	@time queens_serial(size)
+	queens_serial(size)
  
  end
 
@@ -37,7 +37,7 @@ end
                                  size)
 	
 	@info "sgpu kernel"
-	@time queens_sgpu(size)
+	queens_sgpu(size)
 end
 
 # MULTIPLE GPU (mgpu)
@@ -56,7 +56,7 @@ end
                                  accelerator_api::(@api CUDA)}, 
                                 size)
 	@info "mgpu kernel"
-	@time queens_mgpu(size)
+	queens_mgpu(size)
 end
 
 # MULTI-CORE (mcore)
@@ -88,7 +88,7 @@ end
 	                             processor_count::(@atleast 2),
 								 accelerator_count::@just(0)}, size)
 	@info "mcore kernel"
-    @time queens_mcore(size)
+    queens_mcore(size)
 end
 
 @platform aware function queens({node_provider::OnPremises,
@@ -96,14 +96,14 @@ end
 	                             processor_core_count::(@atleast 2),
 								 accelerator_count::@just(0)}, size)
 	@info "mcore kernel"
-    @time queens_mcore(size)
+    queens_mcore(size)
 end
 
 @platform aware function queens({node_provider::CloudProvider,
 								 node_vcpus_count::(@atleast 2),
 								 accelerator_count::@just(0)}, size)
  	@info "mcore kernel"
-   @time queens_mcore(size)
+    queens_mcore(size)
 end
 
 # MULTI-CORE/MULTI-GPU (mcore-mgpu)
@@ -142,7 +142,7 @@ end
                                  accelerator_api::(@api CUDA)}, 
                                 size)
 	@info "mcore/mgpu kernel"
-	@time queens_mgpu_mcore(size)
+	queens_mgpu_mcore(size)
 end
 
 @platform aware function queens({node_count::@just(1),
@@ -153,7 +153,7 @@ end
                                  accelerator_api::(@api CUDA)}, 
                                 size)
 	@info "mcore/mgpu kernel"
-	@time queens_mgpu_mcore(size)
+	queens_mgpu_mcore(size)
 end
 
 @platform aware function queens({node_count::@just(1),
@@ -165,7 +165,7 @@ end
                                 size)
 
 	@info "mcore/mgpu kernel"
-	@time queens_mgpu_mcore(size)
+	queens_mgpu_mcore(size)
 
 end
 
@@ -177,7 +177,7 @@ end
 
 @platform aware function queens({node_count::(@atleast 2)}, size)
     @info "distributed kernel"
-    @time queens_distributed(size)
+    queens_distributed(size)
 end
 
 
