@@ -40,9 +40,9 @@ function queens_mgpu_mcore_caller(size, cutoff_depth, number_of_subproblems, sub
 		get_starting_point_each_gpu(cpu_load, num_gpus, device_load, device_starting_position)
 	end
 
-    @info "Total load: $number_of_subproblems, CPU percent: $(cpup*100)%" 
-	@info "CPU load: $cpu_load, Number of threads: $num_threads"
-	@info "GPU load: $gpu_load, Number of GPUS: $num_gpus"
+    #@info "Total load: $number_of_subproblems, CPU percent: $(cpup*100)%" 
+	#@info "CPU load: $cpu_load, Number of threads: $num_threads"
+	#@info "GPU load: $gpu_load, Number of GPUS: $num_gpus"
     
 	#if gpu_load > 0
 	#	for device in 1:num_gpus

@@ -31,7 +31,7 @@ function queens_mgpu(size)
 	cutoff_depth = getCutoffDepth()
 	num_gpus = Int64(length(CUDA.devices()))
 
-	(subproblems, number_of_subproblems, partial_tree_size) = @time queens_partial_search!(Val(size), cutoff_depth)
+	(subproblems, number_of_subproblems, partial_tree_size) = queens_partial_search!(Val(size), cutoff_depth)
 
 	tree_each_task = zeros(Int64, num_gpus + 1)
 	sols_each_task = zeros(Int64, num_gpus + 1)

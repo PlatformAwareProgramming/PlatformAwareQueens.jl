@@ -12,6 +12,8 @@ function queens_sgpu(size)
 
 	number_of_solutions, tree_size = queens_gpu_caller(size, cutoff_depth, number_of_subproblems, 1, subproblems)
 
+    CUDA.reclaim()
+
 	return number_of_solutions, tree_size + partial_tree_size
 
 end #caller

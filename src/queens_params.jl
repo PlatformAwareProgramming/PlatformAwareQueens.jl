@@ -12,7 +12,7 @@ function getCutoffDepth()
     cutoff_depth[] + 1
 end
  
-global const cpu_percentage = Ref{Real}(0.2)
+global const cpu_percentage = Ref{Real}(0.5)
 
 function setCpuPortion(v)
     cpu_percentage[] = v 
