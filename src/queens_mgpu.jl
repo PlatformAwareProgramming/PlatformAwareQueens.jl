@@ -42,15 +42,15 @@ function queens_mgpu(size)
 	get_load_each_gpu(number_of_subproblems, num_gpus, device_load)
 	get_starting_point_each_gpu(0, num_gpus, device_load, device_starting_position)   
 	
-	for device in 1:num_gpus
-		@info "Device - $device - Load: $(device_load[device]) - Start point: $(device_starting_position[device])"
-	end
+	#for device in 1:num_gpus
+	#	@info "Device - $device - Load: $(device_load[device]) - Start point: $(device_starting_position[device])"
+	#end
 
 	@sync begin
 			for gpu_dev in 1:num_gpus
 				Threads.@spawn begin
 					device!(gpu_dev - 1)
-					@info "- starting device: $(gpu_dev - 1)"
+					# @info "- starting device: $(gpu_dev - 1)"
 					(sols_each_task[gpu_dev],tree_each_task[gpu_dev]) = queens_gpu_caller(size, 
 					                                                                      cutoff_depth, 																						   
 																						  device_load[gpu_dev],

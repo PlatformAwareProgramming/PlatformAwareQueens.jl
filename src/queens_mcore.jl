@@ -19,7 +19,7 @@ function queens_mcore_caller(size, number_of_subproblems, subproblems)
 			local local_load = thread_load[local_thread_id + 1]
 
 			Threads.@spawn begin
-				@info  "thread: $(string(local_thread_id)) has $(string(local_load)) iterations"
+			   # @info  "thread: $(string(local_thread_id)) has $(string(local_load)) iterations"
 				for j in 1:local_load
 
 					s = local_thread_id * stride + j
