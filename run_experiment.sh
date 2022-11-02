@@ -10,7 +10,7 @@ do
          if [ $1 == "adhoc" ]; then
             $JULIA_PATH/julia ./run_sample.jl $version $size $turn >> output.adhoc.$version.$size
          else 
-            PLATFORM_DESCRIPTION=Platform.$version.toml $JULIA_PATH/julia ./run_sample.jl -$version $size $turn >> output.structured.$version.$size   	
+            PLATFORM_DESCRIPTION=Platform.$version.toml $JULIA_PATH/julia --threads=$2 ./run_sample.jl -$version $size $turn >> output.structured.$version.$size   	
          fi
       done
    done
