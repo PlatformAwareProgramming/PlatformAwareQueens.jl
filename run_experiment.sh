@@ -7,9 +7,9 @@ do
       for turn in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35
       do
 	      echo $size.$version.$turn.adhoc
-         $JULIA_PATH/julia ./run_sample.jl $version $size $turn >> output.adhoc.$version.$size
+         $JULIA_PATH/julia --threads=$1 ./run_sample.jl $version $size $turn >> output.adhoc.$version.$size
          echo $size.$version.$turn.structured
-         PLATFORM_DESCRIPTION=Platform.$version.toml $JULIA_PATH/julia --threads=$2 ./run_sample.jl -$version $size $turn >> output.structured.$version.$size   	
+         PLATFORM_DESCRIPTION=Platform.$version.toml $JULIA_PATH/julia --threads=$1 ./run_sample.jl -$version $size $turn >> output.structured.$version.$size   	
       done
    done
 done
