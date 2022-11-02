@@ -9,7 +9,7 @@ function main(args)
 	size = parse(Int64,args[2])
 	i = parse(Int64,args[3])
 
-	if (v == 0)
+	if (v < 0)
 		@info "$i: structured"
 		@time queens(size)
 		@time queens(size)
