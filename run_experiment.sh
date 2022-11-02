@@ -8,9 +8,9 @@ do
       do
 	      echo $size.$version.$turn
          if [ $1 == "adhoc" ]; then
-            $JULIA_PATH/julia ./run_sample.jl $version $size $turn >> output.$version.$size
+            $JULIA_PATH/julia ./run_sample.jl $version $size $turn >> output.adhoc.$version.$size
          else 
-            PLATFORM_DESCRIPTION=Platform.$version.toml $JULIA_PATH/julia ./run_sample.jl -$version $size $turn >> output.$version.$size   	
+            PLATFORM_DESCRIPTION=Platform.$version.toml $JULIA_PATH/julia ./run_sample.jl -$version $size $turn >> output.structured.$version.$size   	
          fi
       done
    done
