@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 for size in 15 16
 do
