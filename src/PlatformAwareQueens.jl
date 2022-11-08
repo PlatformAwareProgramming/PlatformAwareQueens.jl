@@ -9,8 +9,6 @@ using CUDA
 using StaticArrays
 using Distributed
 
-CUDA.@check @ccall CUDA.libcudart().cudaDeviceSetLimit(CUDA.cudaLimitMallocHeapSize::CUDA.cudaLimit, 100000000::Csize_t)::CUDA.cudaError_t
-
 include("queens_params.jl")
 
 include("queens_base.jl")

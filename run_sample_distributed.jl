@@ -14,10 +14,10 @@ function main(args)
 		@info "$i: structured"
 		@time queens(size)
 		@time queens(size)
-        elseif (v == 1)
-                @info "$i: ad-hoc / distributed"
-                @time PlatformAwareQueens.queens_distributed(size)
-                @time PlatformAwareQueens.queens_distributed(size)	
+    elseif (v == 1)
+        @info "$i: ad-hoc / distributed"
+        @time PlatformAwareQueens.queens_distributed(size)
+        @time PlatformAwareQueens.queens_distributed(size)	
 	else
 		@info "wrong selection"
 	end

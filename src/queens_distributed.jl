@@ -43,7 +43,7 @@ function queens_distributed_caller(size, number_of_subproblems, subproblems)
 
         result[ii] = @spawnat local_proc_id begin
             @info  "process $(string(local_proc_id)) has $(string(local_load)) iterations"
-            queens_mgpu_mcore_caller(size, cutoff_depth, local_load, local_subproblems)
+            queens_mcore_caller(size, local_load, local_subproblems)
         end
     end
 
