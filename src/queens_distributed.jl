@@ -2,6 +2,14 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
+@platform aware function init_queens({node_count::(@atleast 2 P)}) where P
+    @info "running on $P nodes"
+end
+
+@platform aware function queens({node_count::(@atleast 2)}, size)
+    queens_distributed(size)
+end
+
 function queens_distributed(size)
 
 	cutoff_depth = getCutoffDepth()

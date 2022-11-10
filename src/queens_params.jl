@@ -32,8 +32,7 @@ function getBlockSize()
     __BLOCK_SIZE_[]
 end
 
-    function configureHeap()
-        
+    function configureHeap()        
         for gpus in  1:length(CUDA.devices())
             @info("Setting heap on device $(gpus-1)");
             device!(gpus-1)
