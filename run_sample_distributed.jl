@@ -1,6 +1,6 @@
 @everywhere PATH_REPO = get(ENV,"PATH_REPO",".")
 @everywhere begin import Pkg; Pkg.activate(PATH_REPO) end
-@everywhere using PlatformAwareQueens
+import PlatformAwareQueens
 
 function main(args)
 
@@ -12,8 +12,8 @@ function main(args)
 
 	if (v == 0)
 		@info "$i: structured"
-		@time queens(size)
-		@time queens(size)
+		@time PlatformAwareQueens.queens(size)
+		@time PlatformAwareQueens.queens(size)
     elseif (v == 1)
         @info "$i: ad-hoc / distributed"
         @time PlatformAwareQueens.queens_distributed(size)
