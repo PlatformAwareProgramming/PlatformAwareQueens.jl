@@ -4,7 +4,6 @@
 
 module PlatformAwareQueens
 
-using PlatformAware
 using CUDA
 using StaticArrays
 using Distributed
