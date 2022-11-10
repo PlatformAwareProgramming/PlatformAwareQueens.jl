@@ -3,19 +3,14 @@
 # ------------------------------------------------------------------
 
 @platform aware function init_queens({node_count::@just(1),
-	                                  accelerator_count::(@atleast 2), 
-                                      accelerator_manufacturer::NVIDIA,
-                                      accelerator_api::(@api CUDA)})
+	                                  accelerator_count::(@atleast 2), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)})
 	@info "mgpu kernel"
 	configureHeap()
 end
 
 
 @platform aware function queens({node_count::@just(1), 
-	                             accelerator_count::(@atleast 2), 
-                                 accelerator_manufacturer::NVIDIA,
-                                 accelerator_api::(@api CUDA)}, 
-                                size)
+	                             accelerator_count::(@atleast 2), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)}, size)
 	queens_mgpu(size)
 end
 
