@@ -15,7 +15,6 @@ include("queens_base.jl")
 include("queens_cpu_base.jl")
 include("queens_gpu_base.jl")
 
-include("queens_features.jl")
 include("queens_serial.jl")
 include("queens_mcore.jl")
 include("queens_sgpu.jl")
