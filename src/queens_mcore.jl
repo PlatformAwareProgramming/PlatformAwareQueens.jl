@@ -2,48 +2,6 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({node_provider::OnPremises,
-									  node_count::@just(1),
-	                                  processor_count::(@atleast 2),
-									  accelerator_count::@just(0)})
-	@info "mcore kernel"
-end
-
-@platform aware function queens({node_provider::OnPremises,
-							     node_count::@just(1),
-	                             processor_count::(@atleast 2),
-								 accelerator_count::@just(0)}, size)
-    queens_mcore(size)
-end
-
-@platform aware function init_queens({node_provider::OnPremises,
-									  node_count::@just(1),
-									  processor_count::(@just 1),
-	                                  processor_core_count::(@atleast 2),
-									  accelerator_count::@just(0)})
-	@info "mcore kernel"
-end
-
-@platform aware function queens({node_provider::OnPremises,
-								 processor_count::(@just 1),
-	                             processor_core_count::(@atleast 2),
-								 accelerator_count::@just(0)}, size)
-    queens_mcore(size)
-end
-
-@platform aware function init_queens({node_provider::CloudProvider,
-									  node_count::@just(1),
-								      node_vcpus_count::(@atleast 2),
-									  accelerator_count::@just(0)})
- 	@info "mcore kernel"
-end
-
-@platform aware function queens({node_provider::CloudProvider,
-								 node_vcpus_count::(@atleast 2),
-								 accelerator_count::@just(0)}, size)
-    queens_mcore(size)
-end
-
 function queens_mcore_caller(size, number_of_subproblems, subproblems) 
 
 	cutoff_depth = getCutoffDepth()
@@ -81,6 +39,9 @@ function queens_mcore_caller(size, number_of_subproblems, subproblems)
 
 end #caller
 
+function init_queens_mcore()
+	@info "running mcore queens"
+end
 
 function queens_mcore(size)
 

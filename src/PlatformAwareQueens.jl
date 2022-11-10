@@ -8,6 +8,7 @@ using PlatformAware
 using CUDA
 using StaticArrays
 using Distributed
+using CpuId
 
 include("queens_params.jl")
 
@@ -22,6 +23,7 @@ include("queens_sgpu.jl")
 include("queens_mgpu.jl")
 include("queens_mcore_mgpu.jl")
 include("queens_distributed.jl")
+include("queens_select.jl")
 
 function __init__()    
     init_queens()

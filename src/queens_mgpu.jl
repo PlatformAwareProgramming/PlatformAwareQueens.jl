@@ -2,23 +2,6 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({node_count::@just(1),
-	                                  accelerator_count::(@atleast 2), 
-                                      accelerator_manufacturer::NVIDIA,
-                                      accelerator_api::(@api CUDA)})
-	@info "mgpu kernel"
-	configureHeap()
-end
-
-
-@platform aware function queens({node_count::@just(1), 
-	                             accelerator_count::(@atleast 2), 
-                                 accelerator_manufacturer::NVIDIA,
-                                 accelerator_api::(@api CUDA)}, 
-                                size)
-	queens_mgpu(size)
-end
-
 function get_load_each_gpu(gpu_load, num_gpus, device_load)
 
 	for device in 1:num_gpus
@@ -41,6 +24,11 @@ function get_starting_point_each_gpu(cpu_load::Int64, num_devices, device_load,d
 	end
 
 end ###
+
+function init_queens_mgpu()
+	@info "running mgpu queens"
+	configureHeap()
+end
 
 function queens_mgpu(size)
 	

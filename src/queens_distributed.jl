@@ -2,12 +2,9 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({node_count::(@atleast 2 P)}) where P
-    @info "running on $P nodes"
-end
-
-@platform aware function queens({node_count::(@atleast 2)}, size)
-    queens_distributed(size)
+function init_queens_distributed()
+    P = nprocs()
+	@info "running distributed queens on $P nodes"
 end
 
 function queens_distributed(size)

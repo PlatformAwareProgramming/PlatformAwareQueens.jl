@@ -2,12 +2,8 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform default function init_queens()
-	@info "serial kernel"
-end
-
-@platform default function queens(size)
-	queens_serial(size)
+function init_queens_serial()
+	@info "running serial queens"
 end
 
 function queens_serial(size)
