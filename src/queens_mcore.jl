@@ -2,22 +2,20 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({node_count::@just(1), processor_count::(@just 1), processor_core_count::(@atleast 2), accelerator_count::@just(0)})
-	@info "mcore kernel"
+@platform assumption mcore_assumptions_1 = {node_count::@just(1), processor_count::(@atleast 2), accelerator_count::@just(0)}
+@platform assumption mcore_assumptions_2 = {node_count::@just(1), processor_count::(@just 1), processor_core_count::(@atleast 2), accelerator_count::@just(0)}
+
+@platform aware function init_queens($mcore_assumptions_1)
+	@info "mcore kernel (1)"
 end
 
-@platform aware function queens({node_count::@just(1), processor_count::(@atleast 2), accelerator_count::@just(0)}, size)
-    queens_mcore(size)
+@platform aware queens($mcore_assumptions_1, size) = queens_mcore(size)
+
+@platform aware function init_queens($mcore_assumptions_2)
+	@info "mcore kernel (2)"
 end
 
-@platform aware function init_queens({node_count::@just(1), processor_count::(@atleast 2), accelerator_count::@just(0)})
-	@info "mcore kernel"
-end
-
-@platform aware function queens({processor_count::(@just 1), processor_core_count::(@atleast 2), accelerator_count::@just(0)}, size)
-    queens_mcore(size)
-end
-
+@platform aware queens($mcore_assumptions_2, size) = queens_mcore(size)
 
 function queens_mcore_caller(size, number_of_subproblems, subproblems) 
 

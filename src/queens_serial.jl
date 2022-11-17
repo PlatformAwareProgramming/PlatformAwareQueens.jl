@@ -6,9 +6,7 @@
 	@info "serial kernel"
 end
 
-@platform default function queens(size)
-	queens_serial(size)
-end
+@platform default queens(size) = queens_serial(size)
 
 function queens_serial(size)
 

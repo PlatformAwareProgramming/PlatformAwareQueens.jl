@@ -2,16 +2,15 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({node_count::@just(1),
-	                                  accelerator_count::(@just 1), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)})
+@platform assumption sgpu_assumptions = {node_count::@just(1),
+	                                     accelerator_count::(@just 1), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)}
+
+@platform aware function init_queens($sgpu_assumptions)
 	@info "sgpu kernel"
 	configureHeap()
 end
 
-@platform aware function queens({node_count::@just(1),
-	                             accelerator_count::(@just 1), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)}, size)
-	queens_sgpu(size)
-end
+@platform aware queens($sgpu_assumptions, size) = queens_sgpu(size)
 
 function queens_sgpu(size)
 

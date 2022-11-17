@@ -2,29 +2,26 @@
 # Licensed under the MIT License. See LICENCE in the project root.
 # ------------------------------------------------------------------
 
-@platform aware function init_queens({node_count::@just(1), processor_count::(@atleast 2), 
-                                      accelerator_count::(@atleast 2), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)})
-	@info "mcore/mgpu kernel"
+@platform assumption mcoremgpu_assumptions_1 = {node_count::@just(1), processor_count::(@atleast 2), 
+                                                accelerator_count::(@atleast 2), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)}
+
+@platform assumption mcoremgpu_assumptions_2 ={node_count::@just(1), 
+	                                  		   processor_count::(@just 1), processor_core_count::(@atleast 2),
+                                      		   accelerator_count::(@atleast 2), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)}
+
+@platform aware function init_queens($mcoremgpu_assumptions_1)
+	@info "mcore/mgpu kernel (1)"
 	configureHeap()
 end
 
-@platform aware function queens({node_count::@just(1), processor_count::(@atleast 2), 
-                                 accelerator_count::(@atleast 2), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)}, size)
-	queens_mgpu_mcore(size)
-end
+@platform aware queens($mcoremgpu_assumptions_1, size) = queens_mgpu_mcore(size)
 
-@platform aware function init_queens({node_count::@just(1), 
-	                                  processor_count::(@just 1), processor_core_count::(@atleast 2),
-                                      accelerator_count::(@atleast 2), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)})
+@platform aware function init_queens($mcoremgpu_assumptions_2)
+	@info "mcore/mgpu kernel (2)"
 	configureHeap()
 end
 
-@platform aware function queens({node_count::@just(1),
-	   						     processor_count::(@just 1), processor_core_count::(@atleast 2), 
-                                 accelerator_count::(@atleast 2), accelerator_manufacturer::NVIDIA, accelerator_api::(@api CUDA)}, size)
-	@info "mcore/mgpu kernel"
-	queens_mgpu_mcore(size)
-end
+@platform aware queens($mcoremgpu_assumptions_2, size) = queens_mgpu_mcore(size)
 
 function get_cpu_load(percent::Float64, num_subproblems::Int64)::Int64
     return floor(Int64,num_subproblems*percent)
