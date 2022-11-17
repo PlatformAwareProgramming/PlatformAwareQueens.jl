@@ -24,9 +24,11 @@ include("queens_distributed.jl")
 
 include("queens_select.jl")
 
-function __init__()    
-    include("src/queens_kernels.jl")
-end
+include("queens_kernels.jl")
+
+#function __init__()    
+#    include("src/queens_kernels.jl")
+#end
 
 export queens
 

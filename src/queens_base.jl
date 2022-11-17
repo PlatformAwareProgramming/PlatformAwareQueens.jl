@@ -16,8 +16,9 @@ end
 function valid_configuration(board, roll)
 
 	#@inbounds begin
+		x = board[roll]
 		for i=2:roll-1
-			if (board[i] == board[roll])
+			if (board[i] == x)
 				return false
 			end
 		end

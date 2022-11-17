@@ -10,8 +10,7 @@
 			   push!(subproblems_pool, (copy(local_visited), copy(local_permutation))),
 			   subproblems_pool)
 
-@tree_explorer(queens_tree_explorer_serial,
-               1,
+@tree_explorer(queens_tree_explorer_serial, 1,
 			   size + 1,
 			   2, 
 			   number_of_solutions = 0,
