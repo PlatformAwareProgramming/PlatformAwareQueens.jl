@@ -41,11 +41,11 @@ function select_kernel_method()
             end
         elseif core_count > 1
             init_queens_mcore, queens_mcore
+        else
+            init_queens_serial, queens_serial
         end
     elseif gpu_count == 0 && process_count > 1
         init_queens_distributed, queens_distributed
-    else
-        init_queens_serial, queens_serial
     end
 end
 
